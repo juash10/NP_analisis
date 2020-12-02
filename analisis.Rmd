@@ -1,0 +1,50 @@
+---
+title: "Trabajo Final"
+author: "Juan Carlos Trejos"
+date: "2 de diciembre de 2020"
+output: html_document
+---
+
+## Pregunta de investigación
+
+
+
+## DAG
+
+El flujo de CO2 producido por la microbiota del suelo es influenciado por el tipo de nutriente añadido y el tiempo transcurrido desde su adición.
+
+```{r}
+# Carga de librerías
+require(dagitty)
+require(ggdag)
+
+# Definición del DAG
+dag <- dagify(CO2 ~ Tiempo,
+              CO2 ~ Nutr,
+              exposure = "Nutr",
+              outcome = "CO2")
+tidy_dagitty(dag)
+ggdag(dag, layout = "circle") + theme_dag()
+```
+
+## Base de Datos
+
+```{r}
+setwd("C:/Users/JC/Desktop/Trabajo_Final")
+dat <- read.csv("datos_crudos.csv", sep = ";", dec = ",")
+names(dat)
+dat1 <- dat[,-c(5:7,9:21)]
+names(dat1) <- c("Tiempo","Tratamiento","Bloque","Parcela","Flujo_CO2")
+
+```
+
+## Análisis de datos
+
+
+
+## Interpretación de resultados
+
+
+
+## Referencias
+
