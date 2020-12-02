@@ -8,7 +8,7 @@ bibliography: library.bib
 
 ## Pregunta de investigación
 
-Como aún no está claro cuál de los nutrientes principales (N o P) es el factor limitante en la productividad primaria neta de los bosques tropicales, se realizó un experimento de fertilización in situ de más de 12 años en un bosque tropical de bajura en el Caribe de Costa Rica, específicamente en la reserva de la Universidad EARTH [@Alvarez-Clare2013]. Tradicionalmente se ha propuesto que el fósforo es el factor limitante en estos ecosistemas por su baja disponibilidad, debido a la alta meteorización en estos ambientes.
+Como aún no está claro cuál de los nutrientes principales (N o P) es el factor limitante en la productividad primaria neta de los bosques tropicales, se realizó un experimento de fertilización _in situ_ de más de 12 años en un bosque tropical de bajura en el Caribe de Costa Rica, específicamente en la reserva de la Universidad EARTH [@Alvarez-Clare2013]. Tradicionalmente se ha propuesto que el fósforo es el factor limitante en estos ecosistemas por su baja disponibilidad, debido a la alta meteorización en estos ambientes.
 
 Lo que se busca con este experimento es determinar el efecto que tiene la adición de estos nutrientes en la actividad microbiana del suelo en estos bosques, ya que no se tiene claro cuál es el factor limitante en la productividad de estos ecosistemas. Además, se quiere conocer en qué momento se da el pico de actividad posterior a la adición de nutrientes.
 
@@ -80,7 +80,6 @@ data_summary <- function(dat1, Flujo_CO2, grp){
 }
 df2 <- data_summary(dat1, Flujo_CO2="Flujo_CO2", 
                     grp=c("Tratamiento", "Tiempo"))
-df2
 
 # Gráfico de barras (promedio +/- sd) por tiempo y tratamiento
 p <- ggplot(df2, aes(x=Tiempo, y=Flujo_CO2, fill=Tratamiento)) + 
@@ -108,7 +107,7 @@ q
 
 ## Interpretación de Resultados
 
-
+No se encontró un efecto del tiempo por sí solo, sin embargo sí hay una interacción entre algunos tratamientos y el tiempo. Principalmente hay un efecto de los tratamientos con nitrógeno (N y NP) sobre la actividad microbiana. El pico de actividad se da a las 24 h de haberse añadido los nutrientes con nitrógeno y disminuye con el tiempo, llegando a un mismo nivel que el control alcanzados nueve días. La actividad es mayor al añadirse sólo nitrógeno, lo que hace creer que el fósforo tiene un efecto inhibidor sobre el efecto del nitrógeno.
 
 ## Referencias
 
