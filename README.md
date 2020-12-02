@@ -1,4 +1,4 @@
-# Descropción
+# Descripción
 
 Este análisis corresponde a los datos obtenidos de un experimento de fertilización a largo plazo realizado en un bosque tropical del Caribe de Costa Rica. El experimento consta de parcelas en las que se ha fertilizado por más de 12 años con dos nutrientes (nitrógeno -nitrato de amonio y urea- y fósforo -roca fosfórica).
 
