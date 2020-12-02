@@ -6,6 +6,9 @@ output: html_document
 bibliography: library.bib
 ---
 
+### Repositorio
+[GitHub](https://github.com/juash10/NP_analisis)
+
 ## Pregunta de investigación
 
 Como aún no está claro cuál de los nutrientes principales (N o P) es el factor limitante en la productividad primaria neta de los bosques tropicales, se realizó un experimento de fertilización _in situ_ de más de 12 años en un bosque tropical de bajura en el Caribe de Costa Rica, específicamente en la reserva de la Universidad EARTH [@Alvarez-Clare2013]. Tradicionalmente se ha propuesto que el fósforo es el factor limitante en estos ecosistemas por su baja disponibilidad, debido a la alta meteorización en estos ambientes.
