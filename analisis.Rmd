@@ -18,7 +18,7 @@ Para esto, se realizaron mediciones in situ del flujo de CO2 proveniente del sue
 
 El flujo de CO2 producido por la microbiota del suelo es influenciado por el tipo de nutriente añadido y el tiempo transcurrido desde su adición.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 # Carga de librerías
 require(dagitty)
 require(ggdag)
@@ -34,25 +34,74 @@ ggdag(dag, layout = "circle") + theme_dag()
 
 ## Base de Datos
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 # Definición del directorio
 setwd("C:/Users/JC/Desktop/Trabajo_Final")
 # Base de datos crudos
 dat <- read.csv("datos_crudos.csv", sep = ";", dec = ",")
-names(dat)
+head(dat)
 # Base de datos sin variables no importantes y sin datos de agosto porque corresponden a otro experimento
 dat1 <- dat[,-c(5:7,9:21)]
+head(dat1)
 names(dat1) <- c("Tiempo","Tratamiento","Bloque","Parcela","Flujo_CO2")
 # Ordenando los factores
 levels(dat1$Tiempo)
 dat1$Tiempo <- factor(dat1$Tiempo,
                           ordered = TRUE,
                           levels = c("pre", "24h", "72h", "9d"))
+levels(dat1$Tratamiento)
+dat1$Tratamiento <- factor(dat1$Tratamiento,
+                          ordered = TRUE,
+                          levels = c("C", "N", "NP", "P"))
 ```
 
 ## Análisis de Datos
 
-```{r}
+```{r message=FALSE, warning=FALSE}
+# Carga de librerías
+require(ggplot2)
+require(lme4)
+require(plyr)
+
+# Modelo con interacción porque hay una influencia distinta del tiempo sobre cada tratamiento de nutrientes
+M.int <- lm(Flujo_CO2 ~ Tratamiento * Tiempo, data = dat1)
+summary(M.int)
+
+# Cálculo de promedio y desv. est. para cada tratamiento
+data_summary <- function(dat1, Flujo_CO2, grp){
+  summary_func <- function(x, col){
+    c(mean = mean(x[[col]], na.rm=TRUE),
+      sd = sd(x[[col]], na.rm=TRUE))
+  }
+  data_sum <- ddply(dat1, grp, .fun=summary_func,
+                  Flujo_CO2)
+  data_sum <- rename(data_sum, c("mean" = Flujo_CO2))
+ return(data_sum)
+}
+df2 <- data_summary(dat1, Flujo_CO2="Flujo_CO2", 
+                    grp=c("Tratamiento", "Tiempo"))
+df2
+
+# Gráfico de barras (promedio +/- sd) por tiempo y tratamiento
+p <- ggplot(df2, aes(x=Tiempo, y=Flujo_CO2, fill=Tratamiento)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=Flujo_CO2-sd, ymax=Flujo_CO2+sd), width=.2,
+                 position=position_dodge(.9)) +
+  labs(title="Flujo de CO2 por tratamiento y tiempo tras fertilización", x="Tiempo", y = "Flujo de CO2") +
+  theme_classic() +
+  scale_fill_manual(values=c('snow4','royalblue','green3','yellow','tan'))
+
+# Gráfico de cajas (mediana y cuartiles) por tiempo y tratamiento
+q <- ggplot(dat1, aes(x=Tiempo, y=Flujo_CO2, fill=Tratamiento)) + 
+  geom_boxplot(stat="boxplot", color="black", 
+           position=position_dodge()) +
+  labs(title="Flujo de CO2 por tratamiento y tiempo tras fertilización", x="Tiempo", y = "Flujo de CO2") +
+  theme_classic() +
+  scale_fill_manual(values=c('snow4','royalblue','green3','yellow','tan'))
+
+p
+q
 
 ```
 
